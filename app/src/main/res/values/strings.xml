@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Tabbed News</string>
+    <string name="tab_text_1">New Zealand</string>
+    <string name="tab_text_2">United States</string>
+    <string name="tab_text_3">United Kingdom</string>
+</resources>
