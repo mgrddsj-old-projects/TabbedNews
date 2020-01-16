@@ -117,7 +117,7 @@ public class PlaceholderFragment extends Fragment
                             Toast.makeText(context, "Got latest news! ", Toast.LENGTH_SHORT).show();
                             JSONArray responseArray = response.getJSONArray("articles");
                             articleArrayList.clear();
-                            for (int i=0; i<responseArray.length(); i++)
+                            for (int i = 0; i < responseArray.length(); i++)
                             {
                                 JSONObject jsonObject = responseArray.getJSONObject(i);
                                 String title = jsonObject.getString("title");
@@ -153,7 +153,7 @@ public class PlaceholderFragment extends Fragment
     public void showRecyclerView()
     {
         recyclerView = root.findViewById(R.id.recycler);
-        mAdapter = new NewsAdapter((List<Article>)articleArrayList);
+        mAdapter = new NewsAdapter((List<Article>) articleArrayList);
         layoutManager = new LinearLayoutManager(context);
         recyclerView.setAdapter(mAdapter);
         recyclerView.setLayoutManager(layoutManager);
@@ -166,17 +166,18 @@ public class PlaceholderFragment extends Fragment
     {
         swipeContainer = (SwipeRefreshLayout) root.findViewById(R.id.swipeContainer);
         // Setup refresh listener which triggers new data loading
-        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener()
+        {
             @Override
-            public void onRefresh() {
+            public void onRefresh()
+            {
                 // Your code to refresh the list here.
                 // Make sure you call swipeContainer.setRefreshing(false)
                 // once the network request has completed successfully.
                 if (searchQueryRealtime.length() != 0)
                 {
 //                    searchNews(searchQueryRealtime);
-                }
-                else
+                } else
                 {
                     fetchNews(pageViewModel.getNewsURL());
                 }
@@ -186,7 +187,8 @@ public class PlaceholderFragment extends Fragment
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
+    {
         super.onCreateOptionsMenu(menu, inflater);
         menu.clear();
         inflater.inflate(R.menu.menu, menu);
@@ -194,25 +196,31 @@ public class PlaceholderFragment extends Fragment
         SearchView searchView = new SearchView(((MainActivity) context).getSupportActionBar().getThemedContext());
         MenuItemCompat.setShowAsAction(item, MenuItemCompat.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW | MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
         MenuItemCompat.setActionView(item, searchView);
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener()
+        {
             @Override
-            public boolean onQueryTextSubmit(String query) {
+            public boolean onQueryTextSubmit(String query)
+            {
                 searchNews(query);
                 return false;
             }
+
             @Override
-            public boolean onQueryTextChange(String newText) {
+            public boolean onQueryTextChange(String newText)
+            {
                 searchQueryRealtime = newText;
                 mAdapter.getFilter().filter(newText);
                 return false;
             }
         });
-        searchView.setOnClickListener(new View.OnClickListener() {
-                                          @Override
-                                          public void onClick(View v) {
+        searchView.setOnClickListener(new View.OnClickListener()
+              {
+                  @Override
+                  public void onClick(View v)
+                  {
 
-                                          }
-                                      }
+                  }
+              }
         );
     }
 
@@ -220,7 +228,7 @@ public class PlaceholderFragment extends Fragment
     {
         Toast.makeText(context, "Searching! ", Toast.LENGTH_SHORT).show();
         requestQueue = Volley.newRequestQueue(context);
-        String url = "https://newsapi.org/v2/everything?q="+ query + "&apiKey=7f32fd5b23e947abafa4b92c55b42898";
+        String url = "https://newsapi.org/v2/everything?q=" + query + "&apiKey=7f32fd5b23e947abafa4b92c55b42898";
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>()
                 {
@@ -232,7 +240,7 @@ public class PlaceholderFragment extends Fragment
                             Toast.makeText(context, "Got latest news! ", Toast.LENGTH_SHORT).show();
                             JSONArray responseArray = response.getJSONArray("articles");
                             articleArrayList.clear();
-                            for (int i=0; i<responseArray.length(); i++)
+                            for (int i = 0; i < responseArray.length(); i++)
                             {
                                 JSONObject jsonObject = responseArray.getJSONObject(i);
                                 String title = jsonObject.getString("title");
